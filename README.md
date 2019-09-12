@@ -1,4 +1,4 @@
-GROMED = GROMACS + PLUMED
+GROMED = GRO[macs] + PLU[med]
 
 GROMACS [2018.3] is a well known package for molecular dynamics, 
 PLUMED [2.5.2] is an open source library for free energy calculations.
