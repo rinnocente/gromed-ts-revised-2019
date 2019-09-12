@@ -1,0 +1,15 @@
+sudo: required
+
+services:
+  - docker
+
+before_install:
+  - docker build --build-arg GR_SIMD="SSE2" -t gromed-ts-revised-2019 .
+
+script:
+# run plumed regression tests
+  - docker run -u gromed -it gromed /bin/bash -c "cd plumed-2.5.2 && make -C regtest"
+# the last line could be replaced with the following
+# once regtests have been adjusted not to fail when using gcc6
+#  - docker run -u gromed -it gromed /bin/bash -c "cd plumed2 && make -C regtest && make -C regtest checkfail"
+
