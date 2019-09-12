@@ -1,4 +1,4 @@
-GROMED = GRO[macs] + PLU[med]
+## GROMED = GRO[macs] + PLU[med]
 
 GROMACS [2018.3] is a well known package for molecular dynamics, 
 PLUMED [2.5.2] is an open source library for free energy calculations.
@@ -8,9 +8,9 @@ Added ISDB [2] ( pythons script for SAXS using MARTINI form factors).
 More info on : [gromacs site] (http://www.gromacs.org/) , [plumed site] (http://www.plumed.org/home)
 and [isdb_pages] (https://www.plumed.org/doc-v2.5/user-doc/html/_i_s_d_b.html)
 
-# ftp://ftp.gromacs.org/pub/gromacs/gromacs-2018.3.tar.gz
-# https://github.com/plumed/plumed2/releases/download/v2.5.2/plumed-src-2.5.2.tgz
-# https://www.plumed.org/doc-v2.5/user-doc/html/tutorial-resources/isdb-2.tar.gz
+[gromacs_source](ftp://ftp.gromacs.org/pub/gromacs/gromacs-2018.3.tar.gz)
+[plumed_source](https://github.com/plumed/plumed2/releases/download/v2.5.2/plumed-src-2.5.2.tgz)
+[isdb_source](https://www.plumed.org/doc-v2.5/user-doc/html/tutorial-resources/isdb-2.tar.gz)
 
 This container contains both sources and parallel binaries.
 
