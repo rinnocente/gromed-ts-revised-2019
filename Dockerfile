@@ -41,8 +41,8 @@ RUN \
 # download and compile sources.
 #
 ENV     GR_HD="/home/gromed" \
-   	GR_VER="2018.5" \
-   	PL_VER="2.5.1"  \
+   	GR_VER="2018.6" \
+   	PL_VER="2.5.2"  \
 	ISDB_VER="2"
 #
 # ftp://ftp.gromacs.org/pub/gromacs/gromacs-2018.5.tar.gz
