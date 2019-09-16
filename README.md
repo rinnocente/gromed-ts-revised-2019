@@ -1,6 +1,6 @@
 ## GROMED = GRO[macs] + plu[MED]
 
-GROMACS [2018.3] is a well known package for molecular dynamics, 
+GROMACS [2018.6] is a well known package for molecular dynamics, 
 PLUMED [2.5.2] is an open source library for free energy calculations.
 
 Added ISDB [2] ( pythons script for SAXS using MARTINI form factors).
@@ -11,7 +11,7 @@ More info on :
  [isdb_pages](https://www.plumed.org/doc-v2.5/user-doc/html/_i_s_d_b.html)
 
 sources : 
- [gromacs_source](https://ftp.gromacs.org/pub/gromacs/gromacs-2018.3.tar.gz),
+ [gromacs_source](https://ftp.gromacs.org/pub/gromacs/gromacs-2018.6.tar.gz),
  [plumed_source](https://github.com/plumed/plumed2/releases/download/v2.5.2/plumed-src-2.5.2.tgz),
  [isdb_source](https://www.plumed.org/doc-v2.5/user-doc/html/tutorial-resources/isdb-2.tar.gz)
 
@@ -48,7 +48,7 @@ If you have a more perfomant SIMD instruction set like
 **SSE4.1 AVX_256 AVX2_256 AVX_512**
  you can compile and install in an easy way a better suited version :
 ```
-cd gromacs-5.1.4
+cd gromacs-2018.6
 bash tune-gromacs.sh
 ```
 this script uses sudo to install gromacs.
@@ -58,10 +58,10 @@ this script uses sudo to install gromacs.
 ```
 .
 |-- downloads
-|   |-- gromacs-2018.3.tar.gz
+|   |-- gromacs-2018.6.tar.gz
 |   |-- isdb-2.tar.gz
 |   `-- plumed-src-2.5.2.tgz
-|-- gromacs-2018.3
+|-- gromacs-2018.6
 |   |-- AUTHORS
 |   |-- CMakeLists.txt
 |   |-- COPYING
