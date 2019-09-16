@@ -45,8 +45,8 @@ ENV     GR_HD="/home/gromed" \
    	PL_VER="2.5.2"  \
 	ISDB_VER="2"
 #
-# ftp://ftp.gromacs.org/pub/gromacs/gromacs-2018.5.tar.gz
-# https://github.com/plumed/plumed2/releases/download/v2.5.2/plumed-src-2.5.1.tgz
+# ftp://ftp.gromacs.org/pub/gromacs/gromacs-2018.6.tar.gz
+# https://github.com/plumed/plumed2/releases/download/v2.5.2/plumed-src-2.5.2.tgz
 # https://www.plumed.org/doc-v2.5/user-doc/html/tutorial-resources/isdb-2.tar.gz
 #
 WORKDIR "$GR_HD"
