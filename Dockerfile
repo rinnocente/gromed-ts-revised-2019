@@ -43,11 +43,12 @@ RUN \
 ENV     GR_HD="/home/gromed" \
    	GR_VER="2018.6" \
    	PL_VER="2.5.2"  \
-	ISDB_VER="2"
+	ISDB_VER="2" \
+	PLUMED_PREFIX="/usr/local"
 #
-# ftp://ftp.gromacs.org/pub/gromacs/gromacs-2018.6.tar.gz
-# https://github.com/plumed/plumed2/releases/download/v2.5.2/plumed-src-2.5.2.tgz
-# https://www.plumed.org/doc-v2.5/user-doc/html/tutorial-resources/isdb-2.tar.gz
+# https://ftp.gromacs.org/pub/gromacs/gromacs-"${GR_VER}".tar.gz
+# https://github.com/plumed/plumed2/releases/download/v"${PL_VER}"/plumed-"${PL_VER}".tgz
+# https://www.plumed.org/doc-v2.5/user-doc/html/tutorial-resources/isdb-"${ISDB_VER}".tar.gz
 #
 WORKDIR "$GR_HD"
 #
@@ -55,26 +56,30 @@ WORKDIR "$GR_HD"
 # Second : setup GROMACS
 # Third :  copy ISDB 
 #
-RUN     wget https://github.com/plumed/plumed2/releases/download/v"${PL_VER}"/plumed-src-"${PL_VER}".tgz \
-	&& tar xfz plumed-src-"${PL_VER}".tgz \
+RUN     wget https://github.com/plumed/plumed2/releases/download/v"${PL_VER}"/plumed-"${PL_VER}".tgz \
+	&& tar xfz plumed-"${PL_VER}".tgz \
    	&& (cd plumed-"${PL_VER}" ;\
-               ./configure --prefix=/usr --exec-prefix=/usr CXXFLAGS=-O3; \
+               ./configure  --enable-modules=all CXXFLAGS=-O3; \
                make -j $(nproc) ;\
-               make install ) \
+               make install ; \
+	       cd python; pip install plumed ; \
+	       echo source "${GR_HD}"/plumed-"${PL_VER}"/sourceme.sh >>"${GR_HD}"/.bashrc ) \
 	&& wget http://ftp.gromacs.org/pub/gromacs/gromacs-"${GR_VER}".tar.gz \
 	&& tar xfz gromacs-"${GR_VER}".tar.gz \
 	&& ( cd gromacs-"${GR_VER}" ; \
+		chmod a+x "${GR_HD}"/plumed-"${PL_VER}"/sourceme.sh ; \
+	        .  "${GR_HD}"/plumed-"${PL_VER}"/sourceme.sh ; \
 	        plumed patch -p -e gromacs-"${GR_VER}" ; \
 	        for item in $GR_SIMD; do \
 		     mkdir -p build-"$item" ; \
 		     (cd build-"$item"; cmake .. \
 			-DGMX_BUILD_OWN_FFTW=ON -DREGRESSIONTEST_DOWNLOAD=ON \
 			 -DGMX_SIMD="$item" -DCMAKE_C_COMPILER=mpicc -DCMAKE_CXX_COMPILER=mpicxx  \
-			 -DGMX_THREAD_MPI:BOOL=OFF -DGMX_MPI:BOOL=ON ; make -j $(nproc) ); \
+			 -DGMX_MPI=ON ; make -j $(nproc) ); \
 	        done ;\
 	        (cd build-SSE2; make install)) \
-	&&  echo export PATH=/usr/local/gromacs/bin:"${PATH}" >>"${GR_HD}"/.bashrc \
-	&&  echo "source /usr/local/gromacs/bin/GMXRC" >>"${GR_HD}"/.bashrc \
+	&& echo export PATH=/usr/local/gromacs/bin:"${PATH}" >>"${GR_HD}"/.bashrc \
+	&& echo "source /usr/local/gromacs/bin/GMXRC" >>"${GR_HD}"/.bashrc \
 	&& wget https://www.plumed.org/doc-v2.5/user-doc/html/tutorial-resources/isdb-"${ISDB_VER}".tar.gz \
 	&& tar xfz isdb-"${ISDB_VER}".tar.gz 
 
@@ -83,7 +88,7 @@ RUN     wget https://github.com/plumed/plumed2/releases/download/v"${PL_VER}"/pl
 #
 RUN    	\
 	mkdir downloads \
-	&& mv gromacs-"${GR_VER}".tar.gz isdb-"${ISDB_VER}".tar.gz  plumed-src-"${PL_VER}".tgz downloads/
+	&& mv gromacs-"${GR_VER}".tar.gz isdb-"${ISDB_VER}".tar.gz  plumed-"${PL_VER}".tgz downloads/
 #
 COPY	tune-gromacs.sh ${GR_HD}/gromacs-"${GR_VER}"/
 #
